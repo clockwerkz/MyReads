@@ -2,13 +2,17 @@ import React from 'react';
 
 const Book = (props) => {
 
+    const clickedChange = (e)=> {
+        props.changeShelf(e.target.value, props.book.id);
+        console.log(e.target.value, props.book.id);
+    }
 
     return (
         <div className="book">
             <div className="book-top">
-                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url('+(props.book && props.book.imageLinks.thumbnail)+')' }}></div>
+                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url('+props.book.imageLinks.thumbnail+')' }}></div>
             <div className="book-shelf-changer">
-                <select>
+                <select onChange={clickedChange}>
                     <option value="move" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>
@@ -17,8 +21,8 @@ const Book = (props) => {
                 </select>
             </div>
         </div>
-            <div className="book-title">{props.book && props.book.title}</div>
-            <div className="book-authors">{props.book && props.book.authors[0]}</div>
+            <div className="book-title">{props.book.title}</div>
+            <div className="book-authors">{props.book.authors[0]}</div>
         </div>
     );
 }
