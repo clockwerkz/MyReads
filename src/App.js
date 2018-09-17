@@ -22,18 +22,11 @@ class BooksApp extends React.Component {
       .then((books) => this.setState({ shelf : books }));
   }
 
-  changeShelf = (newShelf, id)=> {
-    if (newShelf==='none') {
-      this.setState((prevState)=> ({
-        shelf : prevState.shelf.filter((book) => book.id !== id)
-      }))
-    } else {
-      let bookToChange = this.state.shelf.find(function (obj) { return obj.id === id; });
-      bookToChange.shelf = newShelf;
-      this.setState((prevState)=> ({
-        shelf : prevState.shelf.map((book) => (book.id === bookToChange.id) ? bookToChange : book )
-      }))
-    }
+  changeShelf = (newShelf, book)=> {
+    book.shelf = newShelf;
+    this.setState((prevState)=> ({shelf : prevState.shelf}));
+    BooksAPI.update(book, newShelf)
+      .then((data)=> console.log(data));
   }
 
   render() {
@@ -79,7 +72,7 @@ class BooksApp extends React.Component {
                 />
                 <Bookshelf 
                   books={this.state.shelf.filter((book)=> book.shelf==='read')}
-                  title='Currently Reading'
+                  title='Read'
                   changeShelf= {this.changeShelf}
                 />
                 

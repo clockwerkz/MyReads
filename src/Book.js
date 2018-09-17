@@ -11,8 +11,7 @@ const Book = (props) => {
     ];
 
     const clickedChange = (e)=> {
-        props.changeShelf(e.target.value, props.book.id);
-        console.log(e.target.value, props.book.id);
+        props.changeShelf(e.target.value, props.book);
     }
 
     return (
