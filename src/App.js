@@ -27,7 +27,13 @@ class BooksApp extends React.Component {
       this.setState((prevState)=> ({
         shelf : prevState.shelf.filter((book) => book.id !== id)
       }))
-    } 
+    } else {
+      let bookToChange = this.state.shelf.find(function (obj) { return obj.id === id; });
+      bookToChange.shelf = newShelf;
+      this.setState((prevState)=> ({
+        shelf : prevState.shelf.map((book) => (book.id === bookToChange.id) ? bookToChange : book )
+      }))
+    }
   }
 
   render() {

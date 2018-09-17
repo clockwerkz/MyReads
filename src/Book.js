@@ -2,6 +2,14 @@ import React from 'react';
 
 const Book = (props) => {
 
+    const optionValues = [
+        {value :'move', text:'Move to...'},
+        {value: 'currentlyReading', text:'Currently Reading'}, 
+        {value:'wantToRead',text:'Want to Read'}, 
+        {value:'read', text:'Read'}, 
+        {value:'none', text:'None'}
+    ];
+
     const clickedChange = (e)=> {
         props.changeShelf(e.target.value, props.book.id);
         console.log(e.target.value, props.book.id);
@@ -12,12 +20,17 @@ const Book = (props) => {
             <div className="book-top">
                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url('+props.book.imageLinks.thumbnail+')' }}></div>
             <div className="book-shelf-changer">
-                <select onChange={clickedChange}>
-                    <option value="move" disabled>Move to...</option>
-                    <option value="currentlyReading">Currently Reading</option>
-                    <option value="wantToRead">Want to Read</option>
-                    <option value="read">Read</option>
-                    <option value="none">None</option>
+                <select 
+                    onChange={clickedChange}
+                    value={props.book.shelf}
+                >
+                    {optionValues.map((option)=> 
+                        <option 
+                            value={option.value} 
+                            key={option.value} 
+                            disabled={option.value==='move'}
+                        >{option.text}</option>
+                    )}
                 </select>
             </div>
         </div>
