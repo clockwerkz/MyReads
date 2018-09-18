@@ -24,16 +24,19 @@ class BooksApp extends React.Component {
   }
 
   changeShelf = (newShelf, bookToChange)=> {
-    console.log(newShelf, bookToChange);
     bookToChange.shelf = newShelf;
-    this.setState((prevState)=> ({shelf : prevState.shelf.map((book)=> {
-      if (book.id === bookToChange.id) {
-        return bookToChange
-      } else {
-        return book
-      }
-    })}));
-    console.log(this.state);
+    if (this.state.shelf.indexOf(bookToChange)!==-1){
+      this.setState((prevState)=> ({shelf : prevState.shelf.map((book)=> {
+        if (book.id === bookToChange.id) {
+          return bookToChange
+        } else {
+          return book
+        }
+      })}));
+    } else {
+      this.setState((prevState) => ({ shelf : prevState.shelf.concat([ bookToChange ]) }))
+    }
+    //console.log(this.state);
     BooksAPI.update(bookToChange, newShelf);
   }
 
