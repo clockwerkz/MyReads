@@ -16,8 +16,15 @@ class SearchBooks extends Component {
             BooksAPI.search(searchString)
             .then((data)=> {
                 if (!data.error) {
-                    console.log(this.state);
-                    this.setState(({ books : data }));
+                    
+                    this.setState(({ books : data.map((book)=>{
+                        let shelfBook = this.props.currentShelf.find((bookOnShelf)=> bookOnShelf.id === book.id);
+                        if (shelfBook) return shelfBook;
+                        else {
+                            book.shelf = 'none';
+                            return book;
+                        }
+                    }) }));
                 }
                 else {
                     console.log("No Books found");
