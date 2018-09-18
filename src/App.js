@@ -48,7 +48,8 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <SearchBooks 
+          <SearchBooks
+            currentShelf={this.state.shelf} 
             changeShelf={this.changeShelf}
             returnToShelf={this.returnToShelf}
           />

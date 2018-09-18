@@ -12,7 +12,6 @@ class SearchBooks extends Component {
 
     
     searchBooks = (searchString)=> {
-        console.log(searchString)
         if (searchString) {
             BooksAPI.search(searchString)
             .then((data)=> {
