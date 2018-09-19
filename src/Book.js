@@ -1,38 +1,17 @@
 import React from 'react';
+import BookShelfChanger from './BookShelfChanger';
 
 const Book = (props) => {
-
-    const optionValues = [
-        {value :'move', text:'Move to...'},
-        {value: 'currentlyReading', text:'Currently Reading'}, 
-        {value:'wantToRead',text:'Want to Read'}, 
-        {value:'read', text:'Read'}, 
-        {value:'none', text:'None'}
-    ];
-
-    const clickedChange = (e)=> {
-        props.changeShelf(e.target.value, props.book);
-    }
 
     return (
         <div className="book">
             <div className="book-top">
                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url('+(props.book.imageLinks && props.book.imageLinks.thumbnail)+')' }}></div>
-            <div className="book-shelf-changer">
-                <select 
-                    onChange={clickedChange}
-                    value={props.book.shelf ? (props.book.shelf):('None')}
-                >
-                    {optionValues.map((option)=> 
-                        <option 
-                            value={option.value} 
-                            key={option.value} 
-                            disabled={option.value==='move'}
-                        >{option.text}</option>
-                    )}
-                </select>
+                <BookShelfChanger 
+                    book={props.book}
+                    changeShelf={props.changeShelf}
+                />
             </div>
-        </div>
             <div className="book-title">{props.book && props.book.title}</div>
             <div className="book-authors">{props.book.authors && props.book.authors[0]}</div>
         </div>
